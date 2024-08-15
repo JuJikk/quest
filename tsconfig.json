@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "baseUrl": "src",
+    "jsx": "react"
+  },
+  "include": ["src"],
+  "extends": "dtslint/dtslint.json",
+  "rules": {
+    "interface-name": false,
+    "max-classes-per-file": false,
+    "max-line-length": false,
+    "quotemark": [true, "single"],
+    "semicolon": [true, "never"]
+  }
+}

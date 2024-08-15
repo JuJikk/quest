@@ -1,0 +1,32 @@
+.number-in-pin {
+    z-index: 10000000;
+    background-color: #ea4335;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    color: white;
+    font-weight: 900;
+}
+
+.remove-pin-button {
+    backface-visibility: hidden;
+    background-color: gray;
+    border-radius: 6px;
+    border-width: 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-size: 100%;
+    height: 2rem;
+    line-height: 1.15;
+    margin: 12px 0 0;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    width: 12rem;
+}
