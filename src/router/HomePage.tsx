@@ -19,7 +19,9 @@ import { db } from "../utils/auth";
 
 export default function HomePage() {
   const [markers, setMarkers] = useState<Point[]>([]);
-  const questId = "a86bccda-6292-41a8-b45c-31e510db7bf3";
+  const [cameraProps, setCameraProps] =
+    useState<MapCameraProps>(INITIAL_CAMERA);
+  const questId = process.env.REACT_APP_QUEST_ID;
 
   useEffect(() => {
     const loadMarkers = async () => {
@@ -50,35 +52,32 @@ export default function HomePage() {
   };
 
   const handleMarkerDragEnd = async (
-      e: google.maps.MapMouseEvent,
-      point: Point
+    e: google.maps.MapMouseEvent,
+    point: Point,
   ) => {
     const updatedMarkers: Point[] = markers.map((marker) =>
-        marker.uuid === point.uuid
-            ? { ...marker, lat: e.latLng.lat(), lng: e.latLng.lng() }
-            : marker
+      marker.uuid === point.uuid
+        ? { ...marker, lat: e.latLng.lat(), lng: e.latLng.lng() }
+        : marker,
     );
     setMarkers(updatedMarkers);
 
     try {
       const markerRef = doc(db, "quests", questId, "markers", point.uuid);
       await setDoc(
-          markerRef,
-          {
-            ...point,
-            lat: e.latLng.lat(),
-            lng: e.latLng.lng(),
-          },
-          { merge: true }
+        markerRef,
+        {
+          ...point,
+          lat: e.latLng.lat(),
+          lng: e.latLng.lng(),
+        },
+        { merge: true },
       );
     } catch (error) {
       console.error("Error updating marker position: ", error);
     }
   };
 
-
-  const [cameraProps, setCameraProps] =
-    useState<MapCameraProps>(INITIAL_CAMERA);
   const handleCameraChange = (ev: MapCameraChangedEvent) =>
     setCameraProps(ev.detail);
 
